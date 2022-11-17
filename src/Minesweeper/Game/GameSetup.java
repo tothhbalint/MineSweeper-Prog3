@@ -7,9 +7,7 @@ import java.awt.event.ActionListener;
 import static Minesweeper.MineSweeperMain.menuFrame;
 
 public class GameSetup extends JFrame implements Runnable {
-
     static JSlider slider;
-
     static JComboBox comboBox;
     String[] difficulties = {"Easy", "Medium", "Hard"};
     public GameSetup(){
