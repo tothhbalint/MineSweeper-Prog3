@@ -10,11 +10,12 @@ import java.util.Random;
 import static Minesweeper.MineSweeperMain.menuFrame;
 
 public class GameMainFrame extends JFrame implements Runnable{
-
+    public static int lives=3;
+    public static JLabel livesField;
     static Empty[][] fields;
 public GameMainFrame(int n, int difficulty) {
     super("Minesweeper");
-    setSize(n*50 + 50 , n*50 + 80);
+    setSize(n*50 + 50 , n*50 + 100);
     addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosing(WindowEvent windowEvent) {
@@ -28,34 +29,33 @@ public GameMainFrame(int n, int difficulty) {
 
 
     //set chances based on difficulty
-    switch (difficulty){
-        case 0:
+    switch (difficulty) {
+        case 0 -> {
             mineChance = 20;
             healChance = 10;
             crossChance = 5;
-            break;
-        case 1:
+        }
+        case 1 -> {
             mineChance = 25;
             healChance = 7;
             crossChance = 2;
-            break;
-        default:
+        }
+        default -> {
             mineChance = 30;
             healChance = 5;
             crossChance = 1;
-            break;
+        }
     }
 
     fields = new Empty[n][n];
     setLayout(new FlowLayout());
-    JTextField lives = new JTextField("Lives: 3");
+    livesField = new JLabel("Lives: " + lives);
     JPanel gamePanel = new JPanel();
 
-    lives.setEditable(false);
 
     Random randI = new Random();
 
-    gamePanel.setSize(n*50, n*50);
+    gamePanel.setSize(n*50+50, n*50+50);
     gamePanel.setLayout(new GridLayout(n,n));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -74,11 +74,10 @@ public GameMainFrame(int n, int difficulty) {
             }
         }
 
-    add(lives);
+    add(livesField);
     add(gamePanel);
 
-    setLocationRelativeTo(null);
-    setResizable(true);
+    setResizable(false);
 
     }
 

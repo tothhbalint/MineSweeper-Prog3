@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 import static Minesweeper.MineSweeperMain.menuFrame;
-import static Minesweeper.MineSweeperMain.menuThread;
 
 public class GameSetup extends JFrame implements Runnable {
 
@@ -19,7 +18,7 @@ public class GameSetup extends JFrame implements Runnable {
         setSize(300, 350);
 
         JTextField size = new JTextField("Pálya mérete:");
-        slider = new JSlider(JSlider.HORIZONTAL, 10, 40, 20);
+        slider = new JSlider(JSlider.HORIZONTAL, 5, 17, 10);
         JTextField difficulty = new JTextField("Nehézség:");
         comboBox = new JComboBox(difficulties);
         JButton button = new JButton("Start Game");
@@ -28,8 +27,8 @@ public class GameSetup extends JFrame implements Runnable {
 
         size.setHorizontalAlignment(JTextField.CENTER);
         difficulty.setHorizontalAlignment(JTextField.CENTER);
-        slider.setMajorTickSpacing(10);
-        slider.setMinorTickSpacing(2);
+        slider.setMajorTickSpacing(5);
+        slider.setMinorTickSpacing(1);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
         slider.setSnapToTicks(true);
