@@ -1,9 +1,11 @@
 package Minesweeper;
 
 public class MineSweeperMain {
-
+    public static Thread menuThread;
+    public static MineSweeperMenuFrame menuFrame;
     public static void main(String[] args) {
-        MineSweeperMenuFrame menuFrame = new MineSweeperMenuFrame();
-        menuFrame.setVisible(true);
+        menuFrame = new MineSweeperMenuFrame();
+        menuThread = new Thread(menuFrame);
+        menuThread.start();
     }
 }
