@@ -1,30 +1,28 @@
 package Minesweeper.Interface;
 
-import Minesweeper.LeaderBoard;
-
 import javax.swing.*;
 
-import static Minesweeper.LeaderBoard.*;
+import java.awt.*;
+
+import static Minesweeper.FrameController.getLeaderBoard;
+import static Minesweeper.FrameController.leaderBoardFrame;
+
 public class LeaderBoardFrame extends JFrame implements Runnable {
 
-    LeaderBoard leaderBoard = new LeaderBoard();
     public LeaderBoardFrame() {
         super("Leaderboard");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(800, 600);
         setLocationRelativeTo(null);
+        setMinimumSize(new Dimension(400,200));
         setResizable(false);
-
-        addEntry(new LeaderBoardEntry("Test", 100));
-        JTable table = new JTable(leaderBoard);
-
-        add(table);
+        JTable table = new JTable(getLeaderBoard());
+        JScrollPane scroll = new JScrollPane(table);
+        add(scroll);
     }
 
     @Override
     public void run() {
-        LeaderBoardFrame leaderBoardFrame = new LeaderBoardFrame();
-        leaderBoardFrame.setVisible(true);
+        this.setVisible(true);
     }
 }
 

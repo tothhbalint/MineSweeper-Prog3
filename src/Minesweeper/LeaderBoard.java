@@ -1,14 +1,20 @@
 package Minesweeper;
 
 import javax.swing.table.AbstractTableModel;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 
 public class LeaderBoard extends AbstractTableModel implements Serializable {
 
     static ArrayList<LeaderBoardEntry> leaderBoard = new ArrayList<>();
 
-    public LeaderBoard() {
+    public LeaderBoard(){
+        try {
+            readLeaderBoardFromFile();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     static public void addEntry(LeaderBoardEntry entry) {
@@ -25,6 +31,20 @@ public class LeaderBoard extends AbstractTableModel implements Serializable {
 
     public static ArrayList<LeaderBoardEntry> getLeaderBoard() {
         return leaderBoard;
+    }
+
+    public static void writeLeaderBoardToFile() throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream("src/Minesweeper/leaderBoard.save");
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(leaderBoard);
+        objectOutputStream.close();
+    }
+
+    public static void readLeaderBoardFromFile() throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream("src/Minesweeper/leaderBoard.save");
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        leaderBoard = (ArrayList<LeaderBoardEntry>) objectInputStream.readObject();
+        objectInputStream.close();
     }
 
     @Override

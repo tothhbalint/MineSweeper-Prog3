@@ -1,12 +1,12 @@
 package Minesweeper.Game;
 
 import Minesweeper.Game.Fields.*;
-import Minesweeper.Interface.GameMainFrame;
-import Minesweeper.Interface.GameOverFrame;
+import Minesweeper.Interface.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
+
 public class GameControl {
     static int mineChance;
     static int healChance;
@@ -14,17 +14,18 @@ public class GameControl {
 
     static int lives = 3;
 
-    public static GameMainFrame gameMainFrame;
+    static GameMainFrame gameMainFrame;
 
     public static Empty fields[][];
 
-    static int score;
+    static int score=1000;
 
     static int time;
 
     static Timer timer;
 
     static Thread timerThread;
+
 
     public void setDifficultyValues(int difficulty){
         //set chances based on difficulty
@@ -124,9 +125,10 @@ public class GameControl {
 
     public static void hit(){
         lives = lives-1;
-        if(lives == 0){
+        score = score -100;
+        if(lives <= 0){
             timerThread.interrupt();
-            Thread gameOver = new Thread(new GameOverFrame());
+            Thread gameOver = new Thread(new GameOverFrame(score));
             gameOver.start();
             return;
         }
@@ -149,6 +151,7 @@ public class GameControl {
                     return;
                 }
                 time++;
+                score = score-10;
                 gameMainFrame.setTimeField(time);
             }
         }

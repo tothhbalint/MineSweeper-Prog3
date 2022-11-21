@@ -5,6 +5,7 @@ import Minesweeper.Interface.LeaderBoardFrame.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MineSweeperMenuFrame extends JFrame implements Runnable {
         public MineSweeperMenuFrame() {

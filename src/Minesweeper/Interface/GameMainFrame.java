@@ -20,6 +20,7 @@ public GameMainFrame(int n, Empty[][] fields){
         @Override
         public void windowClosing(WindowEvent windowEvent) {
             menuFrame.enableFrame();
+
         }
     });
     setLayout(new FlowLayout());
@@ -35,6 +36,10 @@ public GameMainFrame(int n, Empty[][] fields){
             gamePanel.add(fields[i][j]);
         }
     }
+
+    MineSweeperMenuBar menuBar = new MineSweeperMenuBar();
+
+    add(menuBar);
 
     add(livesField);
     add(timeField);
