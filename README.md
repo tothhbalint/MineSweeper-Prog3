@@ -1,0 +1,3 @@
+# MineSweeper-Prog3
+Nagyon ritka progHF feladat, klasszikus aknakereső kis extrákkal
+WÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ
