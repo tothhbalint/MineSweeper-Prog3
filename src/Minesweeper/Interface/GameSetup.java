@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-import static Minesweeper.MineSweeperMain.menuFrame;
+import static Minesweeper.FrameController.*;
 
 public class GameSetup extends JFrame implements Runnable {
     static JSlider slider;

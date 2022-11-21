@@ -6,8 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 
-import static Minesweeper.MineSweeperMain.menuFrame;
-
+import static Minesweeper.FrameController.*;
+import static Minesweeper.Game.GameControl.*;
 public class GameMainFrame extends JFrame implements Runnable{
     static JLabel livesField;
 
@@ -20,6 +20,7 @@ public GameMainFrame(int n, Empty[][] fields){
         @Override
         public void windowClosing(WindowEvent windowEvent) {
             menuFrame.enableFrame();
+            stopTimer();
 
         }
     });
@@ -39,7 +40,7 @@ public GameMainFrame(int n, Empty[][] fields){
 
     MineSweeperMenuBar menuBar = new MineSweeperMenuBar();
 
-    add(menuBar);
+    this.setJMenuBar(menuBar);
 
     add(livesField);
     add(timeField);

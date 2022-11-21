@@ -25,31 +25,35 @@ public class LeaderBoard extends AbstractTableModel implements Serializable {
         leaderBoard.remove(entry);
     }
 
-    static void clearLeaderBoard() {
-        leaderBoard.clear();
-    }
-
     public static ArrayList<LeaderBoardEntry> getLeaderBoard() {
         return leaderBoard;
     }
 
-    public static void writeLeaderBoardToFile() throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream("src/Minesweeper/leaderBoard.save");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        objectOutputStream.writeObject(leaderBoard);
-        objectOutputStream.close();
+    public static void writeLeaderBoardToFile() {
+        try{
+            FileOutputStream fileOutputStream = new FileOutputStream("src/Minesweeper/leaderBoard.save");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(leaderBoard);
+            objectOutputStream.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
-    public static void readLeaderBoardFromFile() throws IOException, ClassNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream("src/Minesweeper/leaderBoard.save");
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        leaderBoard = (ArrayList<LeaderBoardEntry>) objectInputStream.readObject();
-        objectInputStream.close();
+    public static void readLeaderBoardFromFile() {
+        try {
+            FileInputStream fileInputStream = new FileInputStream("src/Minesweeper/leaderBoard.save");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            leaderBoard = (ArrayList<LeaderBoardEntry>) objectInputStream.readObject();
+            objectInputStream.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public int getRowCount() {
-        return leaderBoard.size()/2;
+        return leaderBoard.size();
     }
 
     @Override

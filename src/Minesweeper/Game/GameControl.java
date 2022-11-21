@@ -12,7 +12,7 @@ public class GameControl {
     static int healChance;
     static int crossChance;
 
-    static int lives = 3;
+    static int lives;
 
     static GameMainFrame gameMainFrame;
 
@@ -21,8 +21,6 @@ public class GameControl {
     static int score=1000;
 
     static int time;
-
-    static Timer timer;
 
     static Thread timerThread;
 
@@ -49,8 +47,9 @@ public class GameControl {
     }
 
     public GameControl(int size, int difficulty){
+        time = 0;
+        lives = 3;
         timerThread = new Thread(new Timer());
-
         timerThread.start();
         fields = new Empty[size][size];
         setDifficultyValues(difficulty);
@@ -123,6 +122,10 @@ public class GameControl {
         return bombsAround;
     }
 
+    public static GameMainFrame getGameMainFrame(){
+        return gameMainFrame;
+    }
+
     public static void hit(){
         lives = lives-1;
         score = score -100;
@@ -138,6 +141,10 @@ public class GameControl {
     public static void heal(){
         lives = lives+1;
         gameMainFrame.setLivesField(lives);
+    }
+
+    public static void stopTimer(){
+        timerThread.interrupt();
     }
 
     static class Timer implements Runnable{

@@ -7,7 +7,9 @@ public class FrameController{
     public static LeaderBoardFrame leaderBoardFrame;
     public static MineSweeperMenuFrame menuFrame;
 
-    static Thread menuThread;
+    public static Thread menuThread;
+
+    public static Thread leaderBoardThread;
     static LeaderBoard leaderBoard;
 
     public static LeaderBoard getLeaderBoard(){
@@ -17,6 +19,7 @@ public class FrameController{
     public FrameController(){
         leaderBoard = new LeaderBoard();
         leaderBoardFrame = new LeaderBoardFrame();
+        leaderBoardThread = new Thread(leaderBoardFrame);
         menuFrame = new MineSweeperMenuFrame();
 
         menuThread = new Thread(menuFrame);

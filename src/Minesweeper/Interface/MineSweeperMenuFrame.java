@@ -2,6 +2,8 @@ package Minesweeper.Interface;
 
 import Minesweeper.Interface.LeaderBoardFrame.*;
 
+import static Minesweeper.FrameController.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -63,9 +65,7 @@ public class MineSweeperMenuFrame extends JFrame implements Runnable {
                 }
             }
             if (e.getActionCommand().equals("Highscore")) {
-                LeaderBoardFrame highscore = new LeaderBoardFrame();
-                Thread thread = new Thread(highscore);
-                thread.start();
+                leaderBoardFrame.enableFrame();
             }
             if (e.getActionCommand().equals("About")) {
                 JFrame about = new JFrame("About");
