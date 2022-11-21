@@ -3,7 +3,7 @@ package Minesweeper.Game.Fields;
 import javax.swing.*;
 import java.awt.event.MouseListener;
 
-import static Minesweeper.Game.GameMainFrame.*;
+import static Minesweeper.Game.GameControl.*;
 
 public class Empty extends JButton {
 
@@ -25,28 +25,24 @@ public class Empty extends JButton {
         return this;
     }
 
-    public void popFieldsAround(Empty field){
-        if(field instanceof Cross){
-            Crosspop(field);
-            return;
-        }
+    public void revealField(Empty field){
         if(field.bombsAround == 0 && field.isEnabled() && bombsAround != -1){
             field.setEnabled(false);
             if(field.location[0] != 0 && field.location[1] != 0){
-                popFieldsAround(fields[field.location[0]-1][field.location[1]]);
-                popFieldsAround(fields[field.location[0]-1][field.location[1]-1]);
+                revealField(fields[field.location[0]-1][field.location[1]]);
+                revealField(fields[field.location[0]-1][field.location[1]-1]);
             }
             if(field.location[0] != fields[0].length-1 && field.location[1] != fields[0].length-1){
-                popFieldsAround(fields[field.location[0]+1][field.location[1]]);
-                popFieldsAround(fields[field.location[0]+1][field.location[1]+1]);
+                revealField(fields[field.location[0]+1][field.location[1]]);
+                revealField(fields[field.location[0]+1][field.location[1]+1]);
             }
             if(field.location[1] != 0 && field.location[0] != fields[0].length-1){
-                popFieldsAround(fields[field.location[0]][field.location[1]-1]);
-                popFieldsAround(fields[field.location[0]+1][field.location[1]-1]);
+                revealField(fields[field.location[0]][field.location[1]-1]);
+                revealField(fields[field.location[0]+1][field.location[1]-1]);
             }
             if(field.location[1] != fields[1].length-1 && field.location[0] != 0){
-                popFieldsAround(fields[field.location[0]][field.location[1]+1]);
-                popFieldsAround(fields[field.location[0]-1][field.location[1]+1]);
+                revealField(fields[field.location[0]][field.location[1]+1]);
+                revealField(fields[field.location[0]-1][field.location[1]+1]);
             }
         }else {
             field.setEnabled(false);
@@ -65,20 +61,11 @@ public class Empty extends JButton {
                     flagged = true;
                 }
             }else if(evt.getButton() == java.awt.event.MouseEvent.BUTTON1 && isEnabled()){
-                if(getThis() instanceof Heal){
-                    livesField.setText("Lives: " + ++lives);
-                    livesField.paintImmediately(livesField.getVisibleRect());
-                }
-                else if(getThis() instanceof Bomb){
-                    livesField.setText("Lives: " + --lives);
-                    livesField.paintImmediately(livesField.getVisibleRect());
-                    setEnabled(false);
-                }else{
-                    popFieldsAround((Empty) getThis());
-                }
+                    revealField((Empty) getThis());
             }
             }
     };
+
 
     public void popLeft(Empty field){
         if(field.bombsAround ==-1 ){
@@ -129,11 +116,6 @@ public class Empty extends JButton {
         popDown(fields[field.location[0]+1][field.location[1]]);
     }
 
-    public void Crosspop(Empty field){
-        popDown(field);
-        popUp(field);
-        popLeft(field);
-        popRight(field);
-    };
+
 }
 

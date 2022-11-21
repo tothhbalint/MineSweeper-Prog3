@@ -1,4 +1,6 @@
-package Minesweeper.Game;
+package Minesweeper.Interface;
+
+import Minesweeper.Game.GameControl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,9 +48,7 @@ public class GameSetup extends JFrame implements Runnable {
     ActionListener actionListener = e -> {
         if (e.getActionCommand().equals("Start Game")) {
             try {
-                GameMainFrame gameMainFrame = new GameMainFrame(slider.getValue(), comboBox.getSelectedIndex());
-                Thread gameMainFrameThread = new Thread(gameMainFrame);
-                gameMainFrameThread.start();
+                GameControl gameControl = new GameControl(slider.getValue(), comboBox.getSelectedIndex());
                 menuFrame.disableFrame();
                 this.dispose();
             } catch (Exception exception) {

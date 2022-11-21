@@ -1,6 +1,6 @@
-package Minesweeper;
+package Minesweeper.Interface;
 
-import Minesweeper.Game.GameSetup;
+import Minesweeper.Interface.LeaderBoardFrame.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ public class MineSweeperMenuFrame extends JFrame implements Runnable {
             panel.setLayout(new FlowLayout());
             JPanel buttons = new JPanel(new GridLayout(6,1));
             JLabel label = new JLabel();
-            label.setIcon(new ImageIcon("src/Minesweeper/Minesweeper.png"));
+            label.setIcon(new ImageIcon("src/Minesweeper/Interface/Minesweeper.png"));
             label.setSize(250,250);
             panel.add(label);
             buttons.add(new JLabel());
@@ -62,7 +62,7 @@ public class MineSweeperMenuFrame extends JFrame implements Runnable {
                 }
             }
             if (e.getActionCommand().equals("Highscore")) {
-                LeaderBoard highscore = new LeaderBoard();
+                LeaderBoardFrame highscore = new LeaderBoardFrame();
                 Thread thread = new Thread(highscore);
                 thread.start();
             }

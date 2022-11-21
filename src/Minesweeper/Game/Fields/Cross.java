@@ -15,5 +15,12 @@ public class Cross extends Empty {
         return this;
     }
 
+    public void revealField(Empty field){
+        popDown(field);
+        popUp(field);
+        popLeft(field);
+        popRight(field);
+    };
+
 
 }

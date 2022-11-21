@@ -2,6 +2,8 @@ package Minesweeper.Game.Fields;
 
 import javax.swing.*;
 
+import static Minesweeper.Game.GameControl.hit;
+
 public class Bomb extends Empty {
 
     int bombsAround = -1;
@@ -16,6 +18,11 @@ public class Bomb extends Empty {
 
     public Object getThis() {
         return this;
+    }
+
+    public void revealField(Empty field){
+        hit();
+        super.revealField(field);
     }
 }
 
