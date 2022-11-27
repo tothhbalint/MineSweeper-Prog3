@@ -1,5 +1,6 @@
 package Minesweeper.Game.Fields;
 
+import static Minesweeper.Game.GameControl.checkWin;
 import static Minesweeper.Game.GameControl.heal;
 
 public class Heal extends Empty {
@@ -15,6 +16,7 @@ public class Heal extends Empty {
     public void revealField(Empty field){
         heal();
         super.revealField(field);
+        checkWin();
     }
 
 }

@@ -2,6 +2,7 @@ package Minesweeper.Game.Fields;
 
 import javax.swing.*;
 
+import static Minesweeper.Game.GameControl.checkWin;
 import static Minesweeper.Game.GameControl.hit;
 
 public class Bomb extends Empty {
@@ -23,6 +24,7 @@ public class Bomb extends Empty {
     public void revealField(Empty field){
         hit();
         super.revealField(field);
+        checkWin();
     }
 }
 

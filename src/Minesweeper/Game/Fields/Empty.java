@@ -44,27 +44,32 @@ public class Empty extends JButton {
                 revealField(fields[field.location[0]][field.location[1]+1]);
                 revealField(fields[field.location[0]-1][field.location[1]+1]);
             }
-        }else {
+        }else{
             field.setEnabled(false);
         }
+        checkWin();
     }
 
+
+    //TODO make this singleton xd
     MouseListener mouseListener = new java.awt.event.MouseAdapter() {
         @Override
-        public void mousePressed(java.awt.event.MouseEvent evt) {
+        public void mousePressed(java.awt.event.MouseEvent evt) throws StackOverflowError{
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3 && isEnabled()) {
                 if (flagged) {
                     setIcon(new ImageIcon("src/Minesweeper/Game/Fields/empty.png"));
                     flagged = false;
-                } else if (!flagged) {
+                } else{
                     setIcon(new ImageIcon("src/Minesweeper/Game/Fields/flag.png"));
                     flagged = true;
                 }
-            }else if(evt.getButton() == java.awt.event.MouseEvent.BUTTON1 && isEnabled()){
-                    revealField((Empty) getThis());
+            }else if(evt.getButton() == java.awt.event.MouseEvent.BUTTON1 && isEnabled() && !flagged){
+                revealField((Empty) getThis());
             }
-            }
+        }
     };
+
+
 
 
     public void popLeft(Empty field){
@@ -117,5 +122,11 @@ public class Empty extends JButton {
     }
 
 
+    public boolean getFlagged(){
+        return flagged;
+    }
+
 }
+
+
 

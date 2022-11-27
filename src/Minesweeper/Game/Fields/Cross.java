@@ -2,6 +2,8 @@ package Minesweeper.Game.Fields;
 
 import javax.swing.*;
 
+import static Minesweeper.Game.GameControl.checkWin;
+
 public class Cross extends Empty {
     public Cross() {
         super();
@@ -20,6 +22,7 @@ public class Cross extends Empty {
         popUp(field);
         popLeft(field);
         popRight(field);
+        checkWin();
     };
 
 

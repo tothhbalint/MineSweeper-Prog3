@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+
 public class GameControl {
     static int mineChance;
     static int healChance;
@@ -55,6 +56,7 @@ public class GameControl {
         setDifficultyValues(difficulty);
 
         Random randI = new Random();
+
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -145,6 +147,23 @@ public class GameControl {
 
     public static void stopTimer(){
         timerThread.interrupt();
+    }
+
+    public static void checkWin(){
+        for (Empty[] e : fields) {
+            for (Empty field : e) {
+                if(field.isEnabled()){
+                    if(field.bombsAround==-1 && field.getFlagged()){
+                        continue;
+                    }
+                    return;
+                }
+            }
+        }
+        timerThread.interrupt();
+        score = score + 1500;
+        Thread gameOver = new Thread(new GameOverFrame(score));
+        gameOver.start();
     }
 
     static class Timer implements Runnable{

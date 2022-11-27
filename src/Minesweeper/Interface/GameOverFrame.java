@@ -27,7 +27,7 @@ public class GameOverFrame extends JFrame implements Runnable{
             }
         });
         setLayout(new FlowLayout());
-        JLabel gameOver = new JLabel("You lost!\n Your score: " + score);
+        JLabel gameOver = new JLabel("Game Over!\n Your score: " + score);
         JButton leaderBoardButton = new JButton("Add to leaderBoard");
         JButton backToMenu = new JButton("Exit to menu");
         leaderBoardButton.addActionListener(new ActionListener() {
