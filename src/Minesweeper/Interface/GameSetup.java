@@ -8,10 +8,29 @@ import java.awt.event.ActionListener;
 
 import static Minesweeper.FrameController.*;
 
+/**
+ * Class for the Game Setup Frame
+ */
 public class GameSetup extends JFrame implements Runnable {
+
+    /**
+     * Slider to select the size
+     */
     static JSlider slider;
+
+    /**
+     * Slider to select the difficulty
+     */
     static JComboBox comboBox;
+
+    /**
+     * This array contains the difficulties
+     */
     String[] difficulties = {"Easy", "Medium", "Hard"};
+
+    /**
+     * Constructor for the Game Setup Frame
+     */
     public GameSetup(){
         super("Setup");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,6 +64,9 @@ public class GameSetup extends JFrame implements Runnable {
         setResizable(false);
     }
 
+    /**
+     * ActionListener for the button
+     */
     ActionListener actionListener = e -> {
         if (e.getActionCommand().equals("Start Game")) {
             try {
@@ -57,6 +79,9 @@ public class GameSetup extends JFrame implements Runnable {
         }
     };
 
+    /**
+     * Method to run the frame
+     */
     @Override
     public void run() {
         GameSetup gameSetup = new GameSetup();

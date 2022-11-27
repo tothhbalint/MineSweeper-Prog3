@@ -8,38 +8,84 @@ import java.awt.*;
 import java.util.Random;
 
 
+/**
+ * This is the main class for the game logic managing the game related frames and functions/variables.
+ */
 public class GameControl {
+    /**
+     * This variable stores the probability of a field being a bomb.
+     */
     static int mineChance;
+    /**
+     * This variable stores the probability of a field being a heal one.
+     */
     static int healChance;
+    /**
+     * This variable stores the probability of a field being a cross one.
+     */
     static int crossChance;
 
+    /**
+     * This variable stores the lives left of the player.
+     */
     static int lives;
 
+    /**
+     * This variable stores the main game frame.
+     */
     static GameMainFrame gameMainFrame;
 
+    /**
+     * This variable stores the fields.
+     */
     public static Empty fields[][];
 
+    /**
+     * This variable stores the reached score.
+     */
     static int score=1000;
 
+    /**
+     * This variable stores the time elapsed since launch.
+     */
     static int time;
 
+    /**
+     * This variable manages the times thread.
+     */
     static Thread timerThread;
 
+    /**
+     * This variable stores the games state (Over/Still going).
+     */
+    static boolean gameOver;
 
+    /**
+     * This variable stores the stringified version of the difficulty of the game.
+     */
+    static String difficulty;
+
+    /**
+     * This function sets the values related to difficulty.
+     * @param difficulty The difficulty of the game.
+     */
     public void setDifficultyValues(int difficulty){
         //set chances based on difficulty
         switch (difficulty) {
             case 0 -> {
+                this.difficulty = "Easy";
                 mineChance = 10;
                 healChance = 7;
                 crossChance = 3;
             }
             case 1 -> {
+                this.difficulty = "Medium";
                 mineChance = 15;
                 healChance = 5;
                 crossChance = 2;
             }
             default -> {
+                this.difficulty = "Hard";
                 mineChance = 25;
                 healChance = 2;
                 crossChance = 1;
@@ -47,7 +93,13 @@ public class GameControl {
         }
     }
 
+    /**
+     * This Constructor for the game that starts the game, sets up the board and other important handles.
+     * @param size size of the board.
+    * @param difficulty difficulty of the game.
+     */
     public GameControl(int size, int difficulty){
+        gameOver = false;
         time = 0;
         lives = 3;
         timerThread = new Thread(new Timer());
@@ -91,6 +143,12 @@ public class GameControl {
         gameMainFrame.setVisible(true);
     }
 
+    /**
+     * This function returns the number of bombs around a field.
+     * @param i x coordinate of the field.
+     * @param j y coordinate of the field.
+     * @return number of bombs around the field.
+     */
     public int getBombsAround(int i, int j){
         int bombsAround = 0;
         if(fields[i][j] instanceof Bomb){
@@ -124,31 +182,48 @@ public class GameControl {
         return bombsAround;
     }
 
+    /**
+     * This function returns the handle for the main frame.
+     * @return handle for the main frame.
+     */
     public static GameMainFrame getGameMainFrame(){
         return gameMainFrame;
     }
 
+    /**
+     * This function manages what happens when a bomb is revealed.
+     */
     public static void hit(){
         lives = lives-1;
         score = score -100;
         if(lives <= 0){
             timerThread.interrupt();
-            Thread gameOver = new Thread(new GameOverFrame(score));
+            gameMainFrame.setEnabled(false);
+            Thread gameOver = new Thread(new GameOverFrame(score,difficulty));
             gameOver.start();
             return;
         }
         gameMainFrame.setLivesField(lives);
     }
 
+    /**
+     * This function manages what happens when a heal is revealed.
+     */
     public static void heal(){
         lives = lives+1;
         gameMainFrame.setLivesField(lives);
     }
 
+    /**
+     * This function stops the timer.
+     */
     public static void stopTimer(){
         timerThread.interrupt();
     }
 
+    /**
+     * This function checks if the game is won.
+     */
     public static void checkWin(){
         for (Empty[] e : fields) {
             for (Empty field : e) {
@@ -160,19 +235,34 @@ public class GameControl {
                 }
             }
         }
-        timerThread.interrupt();
-        score = score + 1500;
-        Thread gameOver = new Thread(new GameOverFrame(score));
-        gameOver.start();
+        gameOver=true;
     }
 
+    /**
+     * This is a class to manage time.
+     */
     static class Timer implements Runnable{
+
+        /**
+         * This variable stores the state of the timer.
+         */
         boolean running = true;
+
+        /**
+         * This function runs the timer.
+         */
         @Override
         public void run() {
             while (running){
+                if(gameOver){
+                    timerThread.interrupt();
+                    score = score + 1500;
+                    Thread gameOver = new Thread(new GameOverFrame(score,difficulty));
+                    gameOver.start();
+                    gameMainFrame.setEnabled(false);
+                }
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     return;
                 }

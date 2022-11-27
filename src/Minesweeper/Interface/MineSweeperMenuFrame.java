@@ -7,10 +7,17 @@ import static Minesweeper.FrameController.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
+
+/**
+ * Class for the Menu Frame
+ */
 public class MineSweeperMenuFrame extends JFrame implements Runnable {
-        public MineSweeperMenuFrame() {
+
+    /**
+     * Constructor for the Menu Frame
+     */
+    public MineSweeperMenuFrame() {
             setTitle("Menü");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(300, 500);
@@ -41,39 +48,51 @@ public class MineSweeperMenuFrame extends JFrame implements Runnable {
             add(panel);
         }
 
-        @Override
+    /**
+     * Method to run the Menu Frame
+     */
+    @Override
         public void run() {
             this.setVisible(true);
         }
 
-        public void disableFrame() {
+    /**
+     * Method to disable the Menu Frame
+     */
+    public void disableFrame() {
             this.setVisible(false);
         }
 
-        public void enableFrame() {
-            this.setVisible(true);
-        }
+    /**
+     * Method to enable the Menu Frame
+    */
+    public void enableFrame() {
+        this.setVisible(true);
+    }
 
-        ActionListener actionListener = e -> {
-            if (e.getActionCommand().equals("Start Game")) {
-                try {
-                    GameSetup gameSetup = new GameSetup();
-                    Thread gameSetupThread = new Thread(gameSetup);
-                    gameSetupThread.start();
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
+    /**
+     * ActionListener for the Menu Frame
+     */
+    ActionListener actionListener = e -> {
+        if (e.getActionCommand().equals("Start Game")) {
+            try {
+                GameSetup gameSetup = new GameSetup();
+                Thread gameSetupThread = new Thread(gameSetup);
+                gameSetupThread.start();
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
-            if (e.getActionCommand().equals("Highscore")) {
-                leaderBoardFrame.enableFrame();
-            }
-            if (e.getActionCommand().equals("About")) {
-                JFrame about = new JFrame("About");
-                about.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                about.setSize(300, 300);
-                about.add(new JTextField("IDE JONNEK A SZABALLYOKKK"));
-                about.setVisible(true);
-                this.setVisible(false);
-            }
-        };
+        }
+        if (e.getActionCommand().equals("Highscore")) {
+            leaderBoardFrame.enableFrame();
+        }
+        if (e.getActionCommand().equals("About")) {
+            JFrame about = new JFrame("About");
+            about.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            about.setSize(300, 300);
+            about.add(new JTextField("IDE JONNEK A SZABALLYOKKK"));
+            about.setVisible(true);
+            this.setVisible(false);
+        }
+    };
 }

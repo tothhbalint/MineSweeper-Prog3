@@ -13,8 +13,15 @@ import static Minesweeper.Game.GameControl.*;
 import static Minesweeper.LeaderBoard.writeLeaderBoardToFile;
 
 
+/**
+ * Class for the Game Over Frame
+ */
 public class GameOverFrame extends JFrame implements Runnable{
-    public GameOverFrame(int score){
+
+    /**
+     * Constructor for the Game Over Frame
+     */
+    public GameOverFrame(int score, String difficulty){
         super("Game Over");
         setSize(200, 150);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -34,7 +41,7 @@ public class GameOverFrame extends JFrame implements Runnable{
                                                 @Override
                                                 public void actionPerformed(ActionEvent e) {
                                                     String name = JOptionPane.showInputDialog("Enter your name");
-                                                    getLeaderBoard().addEntry(new LeaderBoard.LeaderBoardEntry(name, score));
+                                                    getLeaderBoard().addEntry(new LeaderBoard.LeaderBoardEntry(name, score, difficulty));
                                                 }
                                             });
         backToMenu.addActionListener(new ActionListener() {
@@ -50,6 +57,9 @@ public class GameOverFrame extends JFrame implements Runnable{
         add(backToMenu);
     }
 
+    /**
+     * Method to run the frame as thread
+     */
     public void run(){
         this.setVisible(true);
     }

@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import static Minesweeper.FrameController.*;
 import static Minesweeper.Game.GameControl.*;
 
+/**
+ * Class for the Menu Bar that can be seen on all the main frames
+ */
 public class MineSweeperMenuBar extends JMenuBar {
     public MineSweeperMenuBar(){
         JMenu file = new JMenu("File");
